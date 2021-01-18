@@ -503,6 +503,49 @@
                 </div>
             </div>
         </div>
+<!-- Хуки события в WP -->
+<?php
+    function print_hello() {
+        echo "Hello world" . "<br>";
+    };
+    function print_hello_1() {
+        echo "Hello world_1" . "<br>";
+    };
+    function print_hello_2() {
+        echo "Hello world_2" . "<br>";
+    };
+
+    function print_hello_3($text, $name) {
+        echo "Hello world" . ' ' . $text . ' ' . $name;
+    };
+
+    /* Второе значение - приоритет вывода на экран */
+    add_action('my_hook', 'print_hello', 15);
+    add_action('my_hook', 'print_hello_1', 10);
+    add_action('my_hook', 'print_hello_2', 5);
+    add_action('my_hook', 'print_hello_3', 3, 2);
+
+    do_action('my_hook', 'dear customer', 'Dmitriy <br>');
+
+    // remove_action
+?>
+
+<!-- Хуки фильтры в WP (фильтры что-то возвращают) -->
+<?php
+    function my_filter_function($str) {
+        return 'Hello ' . $str . '<br>';
+    }
+
+    add_filter('my_filter', 'my_filter_function', 15);
+
+    echo apply_filters( 'my_filter', 'World filter' );
+
+    remove_filter( 'my_filter', 'my_filter_function', 15 );
+
+    echo apply_filters( 'my_filter', 'World filter' );
+?>
+
 <?php
     get_footer();
 ?>
+
